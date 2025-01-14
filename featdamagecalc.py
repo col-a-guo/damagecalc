@@ -1,8 +1,8 @@
-def calculate_damage(base_damage, ap, ap_ratio, mr, flat_pen, percent_pen):
+def calculate_damage(base_damage, ap, ap_ratio, resist, flat_pen, percent_pen):
     """Calculates damage dealt after mitigation."""
-    effective_mr = (mr - flat_pen) * (1 - percent_pen / 100)
+    effective_resist = (resist - flat_pen) * (1 - percent_pen / 100)
     damage = base_damage + (ap * ap_ratio)
-    mitigated_damage = damage * (100 / (100 + effective_mr))
+    mitigated_damage = damage * (100 / (100 + effective_resist))
     return mitigated_damage
 
 def compare_item_choices(level, current_flat_pen, mage_stats):
@@ -19,29 +19,29 @@ def compare_item_choices(level, current_flat_pen, mage_stats):
     base_damage, ap_ratio = mage_stats[level - 8]
     current_ap = (3 + level)**2  # Corrected AP scaling
 
-    # MR Calculations
-    low_mr_base = 30 + 1.3 * (level - 1) * (0.7025 + 0.0175 * (level - 1))
-    high_mr_base = 32 + 2.05 * (level - 1) * (0.7025 + 0.0175 * (level - 1))
+    # resist Calculations
+    low_resist_base = 30 + 1.3 * (level - 1) * (0.7025 + 0.0175 * (level - 1))
+    high_resist_base = 32 + 2.05 * (level - 1) * (0.7025 + 0.0175 * (level - 1))
 
-    mr_values = [low_mr_base, high_mr_base, low_mr_base + 40, high_mr_base + 40, low_mr_base + 80, high_mr_base + 80, low_mr_base + 120, high_mr_base + 120]
+    resist_values = [low_resist_base, high_resist_base, low_resist_base + 40, high_resist_base + 40, low_resist_base + 80, high_resist_base + 80, low_resist_base + 120, high_resist_base + 120]
 
     print(f"\nLevel: {level}")
     print("Base Damage:", base_damage)
     print("AP Ratio:", ap_ratio)
     print("Current AP:", current_ap)
     print("Current Flat Pen:", current_flat_pen)
-    print("\nMR\t\t+32.5 AP Increase\t+7 Flat + 10% Pen Increase")
+    print("\nresist\t\t+32.5 AP Increase\t+7 Flat + 10% Pen Increase")
     print("-" * 60)
 
-    for mr in mr_values:
-        current_damage = calculate_damage(base_damage, current_ap, ap_ratio, mr, current_flat_pen, 0)
-        ap_upgraded_damage = calculate_damage(base_damage, current_ap + ap_upgrade, ap_ratio, mr, current_flat_pen, 0)
+    for resist in resist_values:
+        current_damage = calculate_damage(base_damage, current_ap, ap_ratio, resist, current_flat_pen, 0)
+        ap_upgraded_damage = calculate_damage(base_damage, current_ap + ap_upgrade, ap_ratio, resist, current_flat_pen, 0)
         ap_increase = (ap_upgraded_damage - current_damage) / current_damage * 100
 
-        pen_upgraded_damage = calculate_damage(base_damage, current_ap, ap_ratio, mr, current_flat_pen + flat_pen_upgrade, percent_pen_upgrade)
+        pen_upgraded_damage = calculate_damage(base_damage, current_ap, ap_ratio, resist, current_flat_pen + flat_pen_upgrade, percent_pen_upgrade)
         pen_increase = (pen_upgraded_damage - current_damage) / current_damage * 100
 
-        print(f"{mr:.2f}\t\t{ap_increase:.2f}%\t\t\t{pen_increase:.2f}%")
+        print(f"{resist:.2f}\t\t{ap_increase:.2f}%\t\t\t{pen_increase:.2f}%")
 
 # Mage Stats Array:
 mage_stats = [
