@@ -1,6 +1,6 @@
 def calculate_damage(base_damage, ap, ap_ratio, mr, flat_pen, percent_pen):
     """Calculates damage dealt after mitigation."""
-    effective_mr = (mr - flat_pen) + (1 - percent_pen / 100)
+    effective_mr = (mr - flat_pen) * (1 - percent_pen / 100)
     damage = base_damage + (ap * ap_ratio)
     mitigated_damage = damage * (100 / (100 + effective_mr))
     return mitigated_damage
