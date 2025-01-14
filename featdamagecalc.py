@@ -23,7 +23,7 @@ def compare_item_choices(level, current_flat_pen, mage_stats):
     low_mr_base = 30 + 1.3 * (level - 1) * (0.7025 + 0.0175 * (level - 1))
     high_mr_base = 32 + 2.05 * (level - 1) * (0.7025 + 0.0175 * (level - 1))
 
-    mr_values = [low_mr_base, high_mr_base, low_mr_base + 20, high_mr_base + 20, low_mr_base + 40, high_mr_base + 40]
+    mr_values = [low_mr_base, high_mr_base, low_mr_base + 40, high_mr_base + 40, low_mr_base + 80, high_mr_base + 80, low_mr_base + 120, high_mr_base + 120]
 
     print(f"\nLevel: {level}")
     print("Base Damage:", base_damage)
