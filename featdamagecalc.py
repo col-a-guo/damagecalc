@@ -21,21 +21,19 @@ def compare_item_choices(base_damage, ap_ratio, current_ap, current_flat_pen, mr
 
     for mr in mr_values:
         current_damage = calculate_damage(base_damage, current_ap, ap_ratio, mr, current_flat_pen, 0)
-        print(f"current dmg: {current_damage}")
         ap_upgraded_damage = calculate_damage(base_damage, current_ap + ap_upgrade, ap_ratio, mr, current_flat_pen, 0)
-        print(f"ap +32.5: {ap_upgraded_damage}")
         ap_increase = (ap_upgraded_damage - current_damage) / current_damage * 100
 
         pen_upgraded_damage = calculate_damage(base_damage, current_ap, ap_ratio, mr, current_flat_pen + flat_pen_upgrade, percent_pen_upgrade)
         pen_increase = (pen_upgraded_damage - current_damage) / current_damage * 100
-        print(f"+pen: {pen_upgraded_damage}")
+        
 
 
         print(f"{mr:.2f}\t\t{ap_increase:.2f}%\t\t\t{pen_increase:.2f}%")
 
-# Example usage (using the values from our discussion):
-base_damage = 500
-ap_ratio = 2.5907
+# Example usage:
+base_damage = 738.93
+ap_ratio = 3.86
 current_ap = 150
 current_flat_pen = 12
 mr_values = [33.5, 40.75, 53.5, 60.75, 73.5, 80.75]
